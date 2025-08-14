@@ -6,12 +6,28 @@
         <mat-form-field class="form">
             <mat-label>Write your note...</mat-label>
             <div class="textarea-wrapper">
-                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="10"
-                    cdkAutosizeMaxRows="20" class="form" enterkeyhint="enter" (keyup.enter)="post()" type="text"
-                    [(ngModel)]="noteText">
+                <textarea 
+                    matInput 
+                    cdkTextareaAutosize 
+                    #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="10"
+                    cdkAutosizeMaxRows="20" 
+                    class="form" 
+                    enterkeyhint="enter" 
+                    (keyup.enter)="post()" 
+                    type="text"
+                    #textarea
+                    [(ngModel)]="noteText"
+                    (input)="updateCaret($event)">
                 </textarea>
             </div>
-            <span class="char-count">{{noteText.length || 0}}</span>
+            <span
+                class="char-count-live"
+                [style.left.px]="caret.left"
+                [style.top.px]="caret.top"
+                *ngIf="noteText"
+            >
+                {{ noteText.length || 0 }}
+            </span>
             <mat-hint align="end">{{noteText.length}}</mat-hint>
             <div class="actions">
                 <button matSuffix mat-icon-button aria-label="clear"

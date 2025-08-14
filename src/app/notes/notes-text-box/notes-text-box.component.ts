@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Output, ElementRef, ViewChild } from '@angular/core';
 
+import { getCaretCoordinates } from './caret-coordinates.util';
+
+
 @Component({
   selector: 'app-notes-text-box',
   templateUrl: './notes-text-box.component.html',
@@ -7,14 +10,14 @@ import { Component, EventEmitter, Output, ElementRef, ViewChild } from '@angular
 })
 export class NotesTextBoxComponent {
   noteText: string = '';
-  caretLeft = 0;
-  caretTop = 0;
+  caret = { left: 0, top: 0 };
 
   @Output() noteAdded = new EventEmitter<string>();
   @Output() textChanged = new EventEmitter<string>();
 
-  @ViewChild('textarea')
-  textarea!: ElementRef<HTMLTextAreaElement>;
+  // @ViewChild('textarea')
+  // textarea!: ElementRef<HTMLTextAreaElement>;
+
 
   post() {
     // Emit the noteText value when the Post button is clicked
@@ -31,5 +34,21 @@ export class NotesTextBoxComponent {
   }
 
 
+  updateCaret(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    if (!textarea || typeof textarea.selectionEnd !== 'number') {
+    return;
+  }
+    const caretPosition = textarea.selectionEnd;
+    const coordinates = getCaretCoordinates(textarea, caretPosition);
+    this.caret.left = coordinates.left;
+    this.caret.top = coordinates.top;
+
+
+    console.log('Caret Coordinates:', coordinates);
+  }
 
 }
+
+
+
