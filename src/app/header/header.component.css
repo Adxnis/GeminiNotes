@@ -1,0 +1,13 @@
+header h2 {
+    /* justify-content: center; */
+    text-align: center;
+    font-size: 40px;
+    margin: 5px;
+    background-image: linear-gradient(to bottom, #2f2896, #b4064c);
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}
+header {
+    padding: 10px 0;
+}

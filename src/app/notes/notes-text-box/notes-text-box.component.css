@@ -1,0 +1,56 @@
+.form {
+    flex: 1 1 0;
+    min-width: 200px;
+    max-width: 1000px;  
+    position: relative;
+}
+.input-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid red; */
+}
+
+
+.post-btn {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    z-index: 2;
+    min-width: 64px;
+    min-height: 36px;
+}
+
+.actions {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.actions button[mat-icon-button] {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  /* Optionally, keep the space even when hidden */
+  visibility: hidden;
+}
+
+.char-count {
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  z-index: 2;
+  font-size: 12px;
+  color: rgba(37, 139, 122, 0.54);
+  pointer-events: none;
+}

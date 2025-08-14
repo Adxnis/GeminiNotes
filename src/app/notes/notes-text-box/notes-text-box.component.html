@@ -1,0 +1,27 @@
+<!-- <input enterkeyhint="enter" (keyup.enter)="post()" type="text" [(ngModel)]="noteText" placeholder="Enter your note here" (ngModelChange)="onTextChange($event)"/>   -->
+
+
+<div class="container">
+    <div class="input-row">
+        <mat-form-field class="form">
+            <mat-label>Write your note...</mat-label>
+            <div class="textarea-wrapper">
+                <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="10"
+                    cdkAutosizeMaxRows="20" class="form" enterkeyhint="enter" (keyup.enter)="post()" type="text"
+                    [(ngModel)]="noteText">
+                </textarea>
+            </div>
+            <span class="char-count">{{noteText.length || 0}}</span>
+            <mat-hint align="end">{{noteText.length}}</mat-hint>
+            <div class="actions">
+                <button matSuffix mat-icon-button aria-label="clear"
+                    [style.visibility]="noteText ? 'visible' : 'hidden'" (click)="noteText=''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+
+            <button mat-button class="post-btn" mat-raised-button (click)="post()">Post</button>
+
+        </mat-form-field>
+    </div>
+</div>

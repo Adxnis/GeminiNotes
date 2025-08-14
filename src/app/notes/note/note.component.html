@@ -1,0 +1,17 @@
+<div class="container">
+    <p>{{ note.text }}</p>
+    <p>Note ID: {{ note.id }}</p> 
+    <p>Created At: {{ note.createdAt | date:'dd.MM.yyyy HH:mm:ss'  }}</p>
+    <p *ngIf="note.updatedAt">Updated At: {{ note.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</p>
+</div>
+
+<!-- <mat-card>
+    <mat-card-header>
+        <mat-card-title> {{note.text}}</mat-card-title>
+        <mat-card-subtitle>Note ID: {{ note.id }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+        <mat-card-footer>Created At: {{ note.createdAt | date:'dd.MM.yyyy HH:mm:ss'}}</mat-card-footer>
+        <mat-card-footer *ngIf="note.updatedAt">Updated At: {{ note.updatedAt | date:'dd.MM.yyyy HH:mm:ss' }}</mat-card-footer>
+    </mat-card-actions>
+</mat-card> -->
