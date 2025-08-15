@@ -22,11 +22,12 @@
             </div>
             <span
                 class="char-count-live"
+                [style.color]="currentColour"
                 [style.left.px]="caret.left"
                 [style.top.px]="caret.top"
                 *ngIf="noteText"
             >
-                {{ noteText.length || 0 }}
+                {{ noteText.length + currentEmoji || 0 }}
             </span>
             <mat-hint align="end">{{noteText.length}}</mat-hint>
             <div class="actions">

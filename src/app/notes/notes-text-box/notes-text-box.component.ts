@@ -11,6 +11,13 @@ import { getCaretCoordinates } from './caret-coordinates.util';
 export class NotesTextBoxComponent {
   noteText: string = '';
   caret = { left: 0, top: 0 };
+  emojis = ['😀', '🎉', '🚀', '🌟', '😎', '🔥', '💡', '🍀', '🥳', '🦄', '💩'];
+  colours = ["red", "green", "blue", "yellow", "purple", "pink"];
+  currentColourIndex = 0;
+  currentColour = this.colours[0];
+
+  currentEmojiIndex = 0;
+  currentEmoji = this.emojis[0];
 
   @Output() noteAdded = new EventEmitter<string>();
   @Output() textChanged = new EventEmitter<string>();
@@ -35,7 +42,12 @@ export class NotesTextBoxComponent {
 
 
   updateCaret(event: Event) {
-    const textarea = event.target as HTMLTextAreaElement;
+    this.currentEmojiIndex = (this.currentEmojiIndex + 1) % this.emojis.length;
+    this.currentEmoji = this.emojis[this.currentEmojiIndex];
+
+    this.currentColourIndex = (this.currentColourIndex + 1) % this.colours.length;
+    this.currentColour = this.colours[this.currentColourIndex];
+    const textarea = event.target as HTMLTextAreaElement; 
     if (!textarea || typeof textarea.selectionEnd !== 'number') {
     return;
   }

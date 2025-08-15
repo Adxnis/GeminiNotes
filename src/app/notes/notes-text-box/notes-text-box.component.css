@@ -58,11 +58,15 @@
 .char-count-live {
   position: absolute;
   pointer-events: none;
-  color: #258b7a;
+     
+
   font-size: 0.9em;
-  background: #fff;
+  /* background: #fff; */
   padding: 0 2px;
   border-radius: 2px;
   z-index: 10;
   transition: left 0.05s, top 0.05s;
+}
+textarea {
+  color: red;
 }

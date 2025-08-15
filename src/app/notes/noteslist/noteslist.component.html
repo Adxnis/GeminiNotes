@@ -1,9 +1,14 @@
 <div class="container">
     <div *ngFor="let note of notes; let i = index" class="edit-note">
         <div *ngIf="editingIndex === i">
-            <input [(ngModel)]="editText" placeholder="Edit note" (keyup.enter)="saveEdit(i)" />
-            <button  (click)="saveEdit(i)">Save</button>
-            <button (click)="editingIndex = null">Cancel</button>
+            
+                <mat-form-field class="example-full-width">
+                    <mat-label>Edit note</mat-label>
+                    <input matInput [(ngModel)]="editText"  (keyup.enter)="saveEdit(i)" />
+                    <button mat-icon-button (click)="saveEdit(i)"><mat-icon>save</mat-icon></button>
+                    <button mat-icon-button (click)="editingIndex = null"><mat-icon>cancel</mat-icon></button>
+                </mat-form-field>
+        
         </div>
         <div *ngIf="editingIndex !== i" class="note">
 
