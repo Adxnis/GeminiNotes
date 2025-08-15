@@ -8,33 +8,36 @@ import { Note } from './Notes.model';
   styleUrls: ['./notes.component.css']
 })
 export class NotesComponent {
-  text = ''
+  editNote: Note | null = null;
+  
   constructor(private notesService: NotesService) {}
 
   get notes(): Note[] {
     return this.notesService.notes;
   }
 
+
   onAddNote(note: string) {
     this.notesService.addNotes(note);
-    this.text = ''; // Clear the text after adding the note
   }
 
-  displayPreview(text: string) {
-    this.text = text;
-  }
+
 
   onDeleteNote(index: number) {
     this.notesService.deleteNote(index);
   }
 
-  onUpdateNote(event: {index: number, newText: string}){
+  onUpdateNote(event: {index: number, editText: string}){
     console.log("TEXTT")
     console.log(event)
-    this.notesService.updateNote(event.index, event.newText);
+    this.notesService.updateNote(event.index, event.editText);
   }
 
     generateId(): string {
     return Math.random().toString(36).substr(2, 9);
+  }
+
+  onEditNote(note: Note) {
+    this.editNote = note;
   }
 }

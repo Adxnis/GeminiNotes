@@ -22,9 +22,11 @@ export class NotesService {
     const newNote: Note = {
       id: this.generateId(), // Using ISO string as a simple unique ID
       text: note,
-      createdAt: new Date() // Set the creation date
+      createdAt: new Date(), // Set the creation date
+      index: this.notes.length 
     };
 
+    console.log(newNote)  
     // Add the note to the notes array
     this.notes.push(newNote);
   }

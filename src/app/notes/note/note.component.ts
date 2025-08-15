@@ -7,5 +7,8 @@ import { Note } from '../Notes.model';
   styleUrls: ['./note.component.css']
 })
 export class NoteComponent {
-  @Input() note: Note = { id: '', text: '', createdAt: new Date() };
+  @Input() note: Note = {
+    id: '', text: '', createdAt: new Date(),
+    index: 0
+  };
 }
