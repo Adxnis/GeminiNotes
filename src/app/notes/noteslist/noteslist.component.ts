@@ -23,7 +23,6 @@ export class NoteslistComponent {
   }
 
   editNote(index: number) {
-    this.editingIndex = index;
     this.editingNote = this.notes[index];
     this.editClicked.emit(this.editingNote);
   }

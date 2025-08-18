@@ -1,2 +1,2 @@
 <app-notes-text-box  [editNote]="editNote" (noteAdded)="onAddNote($event)" ></app-notes-text-box>
-<app-noteslist [notes]="notes" (noteDeleted)="onDeleteNote($event)" (noteUpdated)="onUpdateNote($event)" (editClicked)="onEditNote($event)"> </app-noteslist>
+<app-noteslist [notes]="notes" (editClicked)="onEditNote($event)" (noteDeleted)="onDeleteNote($event)"> </app-noteslist>

@@ -7,34 +7,50 @@ import {
   Input,
   AfterViewInit,
   SimpleChanges,
+  OnChanges,
 } from '@angular/core';
 
 import { getCaretCoordinates } from './caret-coordinates.util';
 import { Note } from '../Notes.model';
+import { NotesService } from '../notes.service';
 
 @Component({
   selector: 'app-notes-text-box',
   templateUrl: './notes-text-box.component.html',
   styleUrls: ['./notes-text-box.component.css'],
 })
-export class NotesTextBoxComponent {
+export class NotesTextBoxComponent implements OnChanges {
   noteText: string = '';
+
   caret = { left: 0, top: 0 };
   emojis = ['😀', '🎉', '🚀', '🌟', '😎', '🔥', '💡', '🍀', '🥳', '🦄', '💩'];
   colours = ['red', 'green', 'blue', 'yellow', 'purple', 'pink'];
+
   currentColourIndex = 0;
   currentColour = this.colours[0];
 
   currentEmojiIndex = 0;
   currentEmoji = this.emojis[0];
 
+  gifUrls = [
+  'https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif',
+  'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',
+  'https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif'
+  // ...add more GIF URLs
+  ];
+  currentGifIndex = 0;
+  currentGif = this.gifUrls[0];
+  gifBounce = false
+  
+
   @Output() noteAdded = new EventEmitter<string>();
-  @Output() textChanged = new EventEmitter<string>();
   @Input() editNote: Note | null = null;
   @Output() noteSaved = new EventEmitter<string>();
 
   @ViewChild('textarea')
   textarea!: ElementRef<HTMLTextAreaElement>;
+
+  constructor(private notesService: NotesService) {}
 
   ngOnChanges(changes: SimpleChanges) {
     this.noteText = (this.editNote?.text || '').replace(/\n+$/, '');
@@ -44,10 +60,10 @@ export class NotesTextBoxComponent {
           const textareaEl = this.textarea.nativeElement;
           textareaEl.focus();
           // Move caret to the end
-          textareaEl.setSelectionRange(
-            this.noteText.length,
-            this.noteText.length
-          );
+          const len = this.noteText.length;
+          this.textarea.nativeElement.setSelectionRange(len, len);
+          // Update caret position for char count
+          this.updateCaret({ target: this.textarea.nativeElement });
         }
       });
     }
@@ -62,18 +78,7 @@ export class NotesTextBoxComponent {
     this.noteText = '';
   }
 
-  onTextChange(value: string) {
-    console.log(value);
-    this.textChanged.emit(value);
-  }
-
-  updateCaret(event: Event) {
-    this.currentEmojiIndex = (this.currentEmojiIndex + 1) % this.emojis.length;
-    this.currentEmoji = this.emojis[this.currentEmojiIndex];
-
-    this.currentColourIndex =
-      (this.currentColourIndex + 1) % this.colours.length;
-    this.currentColour = this.colours[this.currentColourIndex];
+  updateCaret(event: any) {
     const textarea = event.target as HTMLTextAreaElement;
     if (!textarea || typeof textarea.selectionEnd !== 'number') {
       return;
@@ -86,7 +91,33 @@ export class NotesTextBoxComponent {
     console.log('Caret Coordinates:', coordinates);
   }
 
+  onInput(event: any) {
+    this.currentEmojiIndex = (this.currentEmojiIndex + 1) % this.emojis.length;
+    this.currentEmoji = this.emojis[this.currentEmojiIndex];
+
+    this.currentColourIndex = (this.currentColourIndex + 1) % this.colours.length;
+    this.currentColour = this.colours[this.currentColourIndex];
+
+    this.currentGifIndex = (this.currentGifIndex + 1) % this.gifUrls.length;
+    this.currentGif = this.gifUrls[this.currentGifIndex];
+
+    this.gifBounce = false;
+    setTimeout(() => this.gifBounce = true, 0);
+
+
+    this.updateCaret(event);
+  }
+
   save() {
     this.noteSaved.emit(this.noteText);
   }
-}
+
+  saveEdit(note: Note) {
+    if(note.text == "") return;
+    console.log('Saving edit for note:', note);
+    this.notesService.updateNote(note.index, this.noteText);
+    this.noteText = '';
+    this.editNote = null; // Clear the edit mode after saving
+  }
+
+  }

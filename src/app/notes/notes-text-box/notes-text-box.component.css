@@ -11,6 +11,10 @@
     max-width: 1000px;
 }
 
+  textarea {
+  caret-color: pink;
+  }
+
 .container {
     display: flex;
     justify-content: center;
@@ -58,8 +62,7 @@
 .char-count-live {
   position: absolute;
   pointer-events: none;
-     
-
+  transition: color 0.3s;
   font-size: 0.9em;
   /* background: #fff; */
   padding: 0 2px;
@@ -67,6 +70,16 @@
   z-index: 10;
   transition: left 0.05s, top 0.05s;
 }
-textarea {
+/* textarea {
   color: red;
+} */
+
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0);}
+  50% { transform: translateY(-15px);}
 }
+
+.char-count-live img {
+  animation: bounce 0.4s;
+} 

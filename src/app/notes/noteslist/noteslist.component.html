@@ -1,19 +1,10 @@
 <div class="container">
     <div *ngFor="let note of notes; let i = index" class="edit-note">
-        <div *ngIf="editingIndex === i">
-                <!-- <mat-form-field>
-                    <mat-label>Edit note</mat-label>
-                    <input matInput autofocus [(ngModel)]="editText"  (keyup.enter)="saveEdit(i)" />
-                    <button mat-icon-button (click)="saveEdit(i)"><mat-icon>save</mat-icon></button>
-                    <button mat-icon-button (click)="editingIndex = null"><mat-icon>cancel</mat-icon></button>
-                </mat-form-field> -->
-        </div>
-        <div *ngIf="editingIndex !== i" class="note">
 
             <app-note [note]="note"></app-note>
             <button (click)="deleteNote(i)">Delete</button>
             <button (click)="editNote(i)">Edit</button>
-        </div>
+
     </div>
 
     <hr />

@@ -4,7 +4,8 @@
 <div class="container">
     <div class="input-row">
         <mat-form-field class="form">
-            <mat-label>Write your note...</mat-label>
+            <mat-label>{{this.editNote ? 'Edit your note...' : 'Write your note...'}}</mat-label>
+
             <div class="textarea-wrapper">
                 <textarea 
                     matInput 
@@ -17,7 +18,10 @@
                     type="text"
                     #textarea
                     [(ngModel)]="noteText"
-                    (input)="updateCaret($event)">
+                    (input)="onInput($event)"
+                    (keyup)="updateCaret($event)"
+                    (click)="updateCaret($event)"
+                    [style.caretColor]="currentColour">
                 </textarea>
             </div>
             <span
@@ -26,7 +30,9 @@
                 [style.left.px]="caret.left"
                 [style.top.px]="caret.top"
                 *ngIf="noteText"
-            >
+            > 
+            <!-- <img [src]="currentGif" alt="gif" style="height: 2em; vertical-align: middle;" [class.bounce]="gifBounce"/> -->
+
                 {{ noteText.length + currentEmoji || 0 }}
             </span>
             <mat-hint align="end">{{noteText.length}}</mat-hint>
@@ -37,7 +43,12 @@
                 </button>
             </div>
 
-            <button mat-button class="post-btn" mat-raised-button (click)="post()">Post</button>
+            <button *ngIf="!this.editNote || this.editNote == null" class="post-btn" mat-raised-button (click)="post()">Post</button>
+
+            <div *ngIf="this.editNote" class="post-btn">
+                <button mat-icon-button (click)="saveEdit(this.editNote)"><mat-icon>save</mat-icon></button>
+                <button mat-icon-button (click)="this.editNote=null; this.noteText=''"><mat-icon>cancel</mat-icon></button>
+            </div>
 
         </mat-form-field>
     </div>
