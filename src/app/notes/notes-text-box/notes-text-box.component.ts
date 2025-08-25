@@ -46,6 +46,7 @@ export class NotesTextBoxComponent implements OnChanges {
   @Output() noteAdded = new EventEmitter<string>();
   @Input() editNote: Note | null = null;
   @Output() noteSaved = new EventEmitter<string>();
+  
 
   @ViewChild('textarea')
   textarea!: ElementRef<HTMLTextAreaElement>;
@@ -115,9 +116,11 @@ export class NotesTextBoxComponent implements OnChanges {
   saveEdit(note: Note) {
     if(note.text == "") return;
     console.log('Saving edit for note:', note);
-    this.notesService.updateNote(note.index, this.noteText);
+    this.notesService.updateNote(note.index ?? '', this.noteText ?? '');
     this.noteText = '';
-    this.editNote = null; // Clear the edit mode after saving
+    // this.editNote = null; // Clear the edit mode after saving
+
   }
+  
 
   }

@@ -14,7 +14,7 @@
                     cdkAutosizeMaxRows="20" 
                     class="form" 
                     enterkeyhint="enter" 
-                    (keyup.enter)="post()" 
+                    (keyup.enter)="editNote ? saveEdit(editNote) : post()" 
                     type="text"
                     #textarea
                     [(ngModel)]="noteText"

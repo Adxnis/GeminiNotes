@@ -46,21 +46,24 @@ $light-theme: mat.define-light-theme((
     @include mat.button-color($dark-theme);
     // Optionally, include all component colors:
     @include mat.all-component-colors($dark-theme);
-    background-color: mat.get-color-from-palette(mat.$blue-palette, 900);
-    color: mat.get-color-from-palette(mat.$blue-palette, 50);
     min-height: 100vh;
+    background-color: rgb(24, 76, 108);
+    
 }
 // .dark-theme .mat-mdc-form-field-infix {
 //   background: #23272f !important;
 //   color: #fff !important;
-// }
+// }    
 /* You can add global styles to this file, and also import other style files */
+
+
 
 
 
 html,
 body {
     height: 100%;
+
 }
 
 body {

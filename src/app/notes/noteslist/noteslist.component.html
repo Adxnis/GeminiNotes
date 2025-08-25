@@ -2,8 +2,8 @@
     <div *ngFor="let note of notes; let i = index" class="edit-note">
 
             <app-note [note]="note"></app-note>
-            <button (click)="deleteNote(i)">Delete</button>
-            <button (click)="editNote(i)">Edit</button>
+            <button   mat-button color="primary" (click)="deleteNote(i)">Delete</button>
+            <button  mat-button color="primary" (click)="editNote(i)">Edit</button>
 
     </div>
 

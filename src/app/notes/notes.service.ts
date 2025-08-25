@@ -37,10 +37,22 @@ export class NotesService {
 
   updateNote(index: number, newText: string) {
     // this.notes[event.index].text = event.newText;
-    if(this.notes[index]) {
-      this.notes[index].text = newText;
-      this.notes[index].updatedAt = new Date(); // Update the creation date to the current time
+    const idx = this.notes.findIndex(n => n.index === index);
+    if(idx !== -1) {
+      this.notes[idx] = { 
+        ...this.notes[idx], 
+        text: newText, 
+        updatedAt: new Date() 
+      };
+      // this.notes.splice(idx, 1);
+      // this.notes.unshift(updatedNote);
     }
+
+    this.notes.forEach(note => {
+  console.log(note);
+});
+
+
   }
 
   generateId(): string {
